@@ -50,6 +50,17 @@ defmodule Portal do
     # Let's return the portal itself
     portal
   end
+
+  @doc """
+  Pushes data to the left in the given `portal`.
+  """
+  def push_left(portal) do
+    case Portal.Door.pop(portal.right) do
+      :error   -> :ok
+      {:ok, h} -> Portal.Door.push(portal.left, h)
+    end
+    portal
+  end
 end
 
 defimpl Inspect, for: Portal do
